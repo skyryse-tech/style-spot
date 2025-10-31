@@ -1,0 +1,32 @@
+{
+  "name": "stylespot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "StyleSpot - Beauty & Wellness Services Marketplace",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "cd apps/api && npm run start:dev",
+    "dev:web": "cd apps/web && npm run dev",
+    "build:api": "cd apps/api && npm run build",
+    "build:web": "cd apps/web && npm run build",
+    "lint": "npm run lint --workspaces --if-present",
+    "test": "npm run test --workspaces --if-present",
+    "prisma:generate": "cd packages/prisma && npx prisma generate",
+    "prisma:migrate": "cd packages/prisma && npx prisma migrate dev",
+    "prisma:studio": "cd packages/prisma && npx prisma studio",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "setup": "npm install && npm run prisma:generate"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  }
+}

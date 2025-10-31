@@ -1,0 +1,165 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = "postgresql://stylespot:stylespot_pass@localhost:5433/stylespot_dev"
+}
+
+model Customer {
+  customer_id     Int       @id @default(autoincrement())
+  first_name      String
+  last_name       String?
+  email           String    @unique
+  phone           String    @unique
+  password_hash   String
+  gender          String?
+  dob             DateTime? @db.Date
+  default_address Json?
+  created_at      DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime  @updatedAt @db.Timestamptz(6)
+
+  bookings Booking[]
+  reviews  Review[]
+
+  @@map("customers")
+}
+
+model ShopOwner {
+  owner_id      Int      @id @default(autoincrement())
+  user_email    String   @unique
+  phone         String   @unique
+  password_hash String
+  full_name     String?
+  shop_name     String?
+  shop_address  Json?
+  is_freelancer Boolean  @default(false)
+  service_types String[]
+  bank_account  Json?
+  upi_details   Json?
+  holidays      Json?
+  created_at    DateTime @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime @updatedAt @db.Timestamptz(6)
+
+  services Service[]
+  stylists Stylist[]
+  slots    Slot[]
+  bookings Booking[]
+  files    File[]
+  reviews  Review[]
+
+  @@map("shop_owners")
+}
+
+model Stylist {
+  stylist_id  Int       @id @default(autoincrement())
+  owner_id    Int
+  owner       ShopOwner @relation(fields: [owner_id], references: [owner_id], onDelete: Cascade)
+  name        String
+  specialties String[]
+  phone       String?
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+
+  bookings Booking[]
+
+  @@map("stylists")
+}
+
+model Service {
+  service_id       Int       @id @default(autoincrement())
+  owner_id         Int
+  owner            ShopOwner @relation(fields: [owner_id], references: [owner_id], onDelete: Cascade)
+  name             String
+  description      String?
+  duration_minutes Int
+  base_price       Int
+  gender_type      String?
+  is_home_visit    Boolean   @default(false)
+  created_at       DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at       DateTime  @updatedAt @db.Timestamptz(6)
+
+  bookings Booking[]
+
+  @@map("services")
+}
+
+model Slot {
+  slot_id    Int       @id @default(autoincrement())
+  owner_id   Int
+  owner      ShopOwner @relation(fields: [owner_id], references: [owner_id], onDelete: Cascade)
+  weekday    Int?      @db.SmallInt
+  start_time DateTime  @db.Time(6)
+  end_time   DateTime  @db.Time(6)
+  capacity   Int       @default(1)
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+
+  @@map("slots")
+}
+
+model Booking {
+  booking_id        Int       @id @default(autoincrement())
+  booking_ref       String    @unique
+  customer_id       Int?
+  customer          Customer? @relation(fields: [customer_id], references: [customer_id], onDelete: SetNull)
+  owner_id          Int
+  owner             ShopOwner @relation(fields: [owner_id], references: [owner_id])
+  service_id        Int
+  service           Service   @relation(fields: [service_id], references: [service_id])
+  stylist_id        Int?
+  stylist           Stylist?  @relation(fields: [stylist_id], references: [stylist_id])
+  appointment_date  DateTime  @db.Date
+  appointment_start DateTime  @db.Time(6)
+  appointment_end   DateTime  @db.Time(6)
+  status            String    @default("pending")
+  is_home_visit     Boolean   @default(false)
+  created_at        DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime  @updatedAt @db.Timestamptz(6)
+
+  payment Payment?
+  review  Review?
+
+  @@map("bookings")
+}
+
+model Payment {
+  payment_id Int      @id @default(autoincrement())
+  booking_id Int      @unique
+  booking    Booking  @relation(fields: [booking_id], references: [booking_id], onDelete: Cascade)
+  amount     Int
+  currency   String   @default("INR")
+  method     String?
+  status     String   @default("pending")
+  reference  String?
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@map("payments")
+}
+
+model File {
+  file_id    Int       @id @default(autoincrement())
+  owner_id   Int
+  owner      ShopOwner @relation(fields: [owner_id], references: [owner_id])
+  file_path  String
+  mime_type  String?
+  meta       Json?
+  created_at DateTime  @default(now()) @db.Timestamptz(6)
+
+  @@map("files")
+}
+
+model Review {
+  review_id   Int       @id @default(autoincrement())
+  booking_id  Int       @unique
+  booking     Booking   @relation(fields: [booking_id], references: [booking_id])
+  customer_id Int
+  customer    Customer  @relation(fields: [customer_id], references: [customer_id])
+  owner_id    Int
+  owner       ShopOwner @relation(fields: [owner_id], references: [owner_id])
+  rating      Int       @db.SmallInt
+  comment     String?
+  created_at  DateTime  @default(now()) @db.Timestamptz(6)
+
+  @@map("reviews")
+}

@@ -407,8 +407,7 @@ export default function SignUpPage() {
                       htmlFor="is_freelancer"
                       className="text-sm font-medium text-gray-700 cursor-pointer"
                     >
-                      I am a freelancer (mobile service provider without fixed
-                      shop)
+                      I am a freelancer (without shop)
                     </label>
                   </div>
                 </div>

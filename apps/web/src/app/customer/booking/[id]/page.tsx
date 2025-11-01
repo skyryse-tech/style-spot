@@ -44,6 +44,21 @@ export default function BookingPage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Check user role and redirect if owner
+        const userData = localStorage.getItem("user");
+        if (userData) {
+          try {
+            const user = JSON.parse(userData);
+            if (user.role === "owner") {
+              console.log("Owner detected, redirecting to dashboard...");
+              router.push("/owner/dashboard");
+              return;
+            }
+          } catch (e) {
+            console.error("Failed to parse user data:", e);
+          }
+        }
+
         // Fetch salon/owner details
         const salonRes = await api.get(`/owners/shops/${salonId}`);
         setSalon(salonRes.data);

@@ -1,10 +1,12 @@
-  import { create } from "zustand";
+import { create } from "zustand";
 
 interface User {
   id: number;
   email: string;
   role: "customer" | "owner";
   name?: string;
+  full_name?: string;
+  owner_id?: number;
 }
 
 interface AuthState {

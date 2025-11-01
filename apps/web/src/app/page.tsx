@@ -85,15 +85,26 @@ export default function HomePage() {
               {isAuthenticated ? (
                 <>
                   <button
-                    onClick={() => router.push("/customer/home")}
+                    onClick={() => {
+                      if (user?.role === "owner") {
+                        router.push("/owner/dashboard");
+                      } else {
+                        router.push("/customer/home");
+                      }
+                    }}
                     className="text-gray-700 hover:text-cyan-600 font-medium transition-colors"
                   >
-                    Browse Services
+                    {user?.role === "owner"
+                      ? "My Dashboard"
+                      : "Browse Services"}
                   </button>
                   <div className="flex items-center gap-3">
                     <div className="text-right">
                       <div className="text-sm font-medium text-gray-900">
-                        {user?.name || user?.email?.split("@")[0] || "User"}
+                        {user?.full_name ||
+                          user?.name ||
+                          user?.email?.split("@")[0] ||
+                          "User"}
                       </div>
                       <div className="text-xs text-gray-500 capitalize">
                         {user?.role || "Member"}
@@ -151,13 +162,23 @@ export default function HomePage() {
               <Search className="w-5 h-5" />
               Find Services
             </a>
-            <a
-              href="/auth/signup"
-              className="bg-white text-cyan-600 border-2 border-cyan-500 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 transition-all flex items-center gap-2 shadow-md hover:shadow-lg hover:scale-105"
-            >
-              <Crown className="w-5 h-5" />
-              Register Your Business
-            </a>
+            {isAuthenticated && user?.role === "owner" ? (
+              <button
+                onClick={() => router.push("/owner/dashboard")}
+                className="bg-white text-cyan-600 border-2 border-cyan-500 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 transition-all flex items-center gap-2 shadow-md hover:shadow-lg hover:scale-105"
+              >
+                <Crown className="w-5 h-5" />
+                Go to Dashboard
+              </button>
+            ) : (
+              <a
+                href="/auth/signup"
+                className="bg-white text-cyan-600 border-2 border-cyan-500 px-8 py-4 rounded-xl text-lg font-semibold hover:bg-gradient-to-r hover:from-cyan-50 hover:to-blue-50 transition-all flex items-center gap-2 shadow-md hover:shadow-lg hover:scale-105"
+              >
+                <Crown className="w-5 h-5" />
+                Register Your Business
+              </a>
+            )}
           </div>
 
           <div className="flex justify-center gap-6 text-sm text-gray-600">

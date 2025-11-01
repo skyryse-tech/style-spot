@@ -26,6 +26,21 @@ export default function CheckoutPage() {
 
   const fetchBookingDetails = async () => {
     try {
+      // Check user role and redirect if owner
+      const userData = localStorage.getItem("user");
+      if (userData) {
+        try {
+          const user = JSON.parse(userData);
+          if (user.role === "owner") {
+            console.log("Owner detected, redirecting to dashboard...");
+            router.push("/owner/dashboard");
+            return;
+          }
+        } catch (e) {
+          console.error("Failed to parse user data:", e);
+        }
+      }
+
       const response = await api.get(`/bookings/${bookingId}`);
       setBooking(response.data);
     } catch (error) {

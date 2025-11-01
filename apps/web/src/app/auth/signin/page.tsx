@@ -27,15 +27,39 @@ export default function SignInPage() {
       );
 
       if (response.data && response.data.user && response.data.token) {
-        const user = {
-          id: response.data.user.customer_id || response.data.user.owner_id,
-          email: response.data.user.email || response.data.user.user_email,
-          name: response.data.user.first_name || response.data.user.full_name,
-          role: response.data.role as "customer" | "owner",
-        };
+        const role = response.data.role;
 
+        // Properly map user data based on role
+        const user =
+          role === "customer"
+            ? {
+                id: response.data.user.customer_id,
+                email: response.data.user.email,
+                name: response.data.user.first_name,
+                full_name:
+                  `${response.data.user.first_name} ${response.data.user.last_name || ""}`.trim(),
+                role: "customer" as const,
+              }
+            : {
+                id: response.data.user.owner_id,
+                owner_id: response.data.user.owner_id,
+                email: response.data.user.user_email,
+                name: response.data.user.full_name,
+                full_name: response.data.user.full_name,
+                role: "owner" as const,
+              };
+
+        console.log("Setting auth with user:", user);
         setAuth(user, response.data.token);
-        router.push("/customer/home");
+
+        // Redirect based on role
+        setTimeout(() => {
+          if (user.role === "owner") {
+            router.push("/owner/dashboard");
+          } else {
+            router.push("/customer/home");
+          }
+        }, 100);
       } else {
         alert("Sign in failed. Please check your credentials.");
       }

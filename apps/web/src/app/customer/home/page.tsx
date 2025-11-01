@@ -51,12 +51,28 @@ export default function CustomerHomePage() {
   );
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Check authentication status
+  // Check authentication status and redirect owners
   useEffect(() => {
     const checkAuth = () => {
       const token =
         localStorage.getItem("auth_token") || localStorage.getItem("token");
+      const userData = localStorage.getItem("user");
+
       setIsAuthenticated(!!token);
+
+      // If user is a shop owner, redirect to owner dashboard
+      if (userData) {
+        try {
+          const user = JSON.parse(userData);
+          if (user.role === "owner") {
+            console.log("Owner detected, redirecting to dashboard...");
+            router.push("/owner/dashboard");
+            return;
+          }
+        } catch (e) {
+          console.error("Failed to parse user data:", e);
+        }
+      }
     };
 
     // Check on mount
@@ -72,7 +88,7 @@ export default function CustomerHomePage() {
       window.removeEventListener("storage", checkAuth);
       clearInterval(interval);
     };
-  }, []);
+  }, [router]);
 
   // Show location picker on first visit
   useEffect(() => {

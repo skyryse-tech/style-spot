@@ -50,6 +50,14 @@ export default function CustomerBookingsPage() {
       }
 
       const user = JSON.parse(userData);
+
+      // Redirect owners to their dashboard
+      if (user.role === "owner") {
+        console.log("Owner detected, redirecting to dashboard...");
+        router.push("/owner/dashboard");
+        return;
+      }
+
       const customerId = user.id || user.customer_id;
 
       const response = await api.get("/bookings", {

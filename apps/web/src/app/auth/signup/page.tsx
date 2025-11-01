@@ -110,16 +110,48 @@ export default function SignUpPage() {
           : { ...ownerFormData, role };
 
       console.log("Sending signup request:", payload);
+      console.log("Role selected:", role);
 
       const res = await api.post("/auth/signup", payload);
 
       console.log("Signup response:", res.data);
+      console.log("Response user:", res.data.user);
+      console.log("Response role:", res.data.role);
 
       if (res.data.token) {
-        setAuth(res.data.user, res.data.token);
-        router.push(
-          role === "customer" ? "/customer/home" : "/dashboard/owner"
-        );
+        // Properly map the user data based on role
+        const userData =
+          role === "customer"
+            ? {
+                id: res.data.user.customer_id,
+                email: res.data.user.email,
+                name: res.data.user.first_name,
+                full_name:
+                  `${res.data.user.first_name} ${res.data.user.last_name || ""}`.trim(),
+                role: "customer" as const,
+              }
+            : {
+                id: res.data.user.owner_id,
+                owner_id: res.data.user.owner_id,
+                email: res.data.user.user_email,
+                name: res.data.user.full_name,
+                full_name: res.data.user.full_name,
+                role: "owner" as const,
+              };
+
+        console.log("Setting auth with user data:", userData);
+        console.log("User role is:", userData.role);
+        setAuth(userData, res.data.token);
+
+        // Verify localStorage
+        setTimeout(() => {
+          const storedUser = localStorage.getItem("user");
+          console.log("Stored user in localStorage:", storedUser);
+
+          router.push(
+            role === "customer" ? "/customer/home" : "/owner/dashboard"
+          );
+        }, 100);
       }
     } catch (error: any) {
       console.error("Signup error:", error);

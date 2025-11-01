@@ -57,7 +57,7 @@ jobs:
       - name: Build packages
         run: npm run build:api && npm run build:web
         env:
-          DATABASE_URL: postgresql://stylespot:stylespot_pass@localhost:5432/stylespot_test
+          DATABASE_URL: postgresql://stylespot:stylespot_pass@localhost:5433/stylespot_test
           REDIS_URL: redis://localhost:6379
           JWT_SECRET: test_jwt_secret
           NEXTAUTH_SECRET: test_nextauth_secret

@@ -8,7 +8,8 @@ export class OwnersController {
   @Patch(':id')
   async updateOwner(
     @Param('id') id: string,
-    @Body() body: {
+    @Body()
+    body: {
       full_name?: string;
       shop_name?: string;
       shop_address?: any;
@@ -25,6 +26,7 @@ export class OwnersController {
   async searchShops(
     @Query('lat') lat?: string,
     @Query('lng') lng?: string,
+    @Query('pincode') pincode?: string,
     @Query('service_type') serviceType?: string,
     @Query('q') q?: string,
     @Query('page') page?: string,
@@ -33,6 +35,7 @@ export class OwnersController {
     return this.ownersService.searchShops({
       lat: lat ? parseFloat(lat) : undefined,
       lng: lng ? parseFloat(lng) : undefined,
+      pincode: pincode || undefined,
       service_type: serviceType,
       q,
       page: page ? parseInt(page) : undefined,

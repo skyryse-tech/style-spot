@@ -1,32 +1,49 @@
 "use client";
 
 import { useState } from "react";
-import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Mail, Lock, Sparkles } from "lucide-react";
+import { useAuthStore } from "@/store/auth";
+import axios from "axios";
 
 export default function SignInPage() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const { setAuth } = useAuthStore();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
 
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_API_URL}/auth/signin`,
+        {
+          email,
+          password,
+        }
+      );
 
-    setIsLoading(false);
+      if (response.data && response.data.user && response.data.token) {
+        const user = {
+          id: response.data.user.customer_id || response.data.user.owner_id,
+          email: response.data.user.email || response.data.user.user_email,
+          name: response.data.user.first_name || response.data.user.full_name,
+          role: response.data.role as "customer" | "owner",
+        };
 
-    if (result?.ok) {
-      router.push("/");
-    } else {
+        setAuth(user, response.data.token);
+        router.push("/customer/home");
+      } else {
+        alert("Sign in failed. Please check your credentials.");
+      }
+    } catch (error) {
+      console.error("Sign in error:", error);
       alert("Sign in failed. Please check your credentials.");
+    } finally {
+      setIsLoading(false);
     }
   };
 

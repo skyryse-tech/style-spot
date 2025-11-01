@@ -18,6 +18,13 @@ export class AuthService {
     phone: string;
     password: string;
     role: 'customer' | 'owner';
+    // Shop owner specific fields
+    shop_name?: string;
+    shop_address?: any;
+    is_freelancer?: boolean;
+    service_types?: string[];
+    bank_account?: any;
+    upi_details?: any;
   }) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
 
@@ -47,8 +54,12 @@ export class AuthService {
             phone: data.phone,
             full_name: data.full_name,
             password_hash: hashedPassword,
-            is_freelancer: false,
-            service_types: [],
+            shop_name: data.shop_name,
+            shop_address: data.shop_address || {},
+            is_freelancer: data.is_freelancer || false,
+            service_types: data.service_types || [],
+            bank_account: data.bank_account || {},
+            upi_details: data.upi_details || {},
           },
         });
 

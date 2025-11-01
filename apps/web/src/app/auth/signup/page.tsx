@@ -109,17 +109,24 @@ export default function SignUpPage() {
           ? { ...formData, role }
           : { ...ownerFormData, role };
 
+      console.log("Sending signup request:", payload);
+
       const res = await api.post("/auth/signup", payload);
+
+      console.log("Signup response:", res.data);
 
       if (res.data.token) {
         setAuth(res.data.user, res.data.token);
         router.push(
-          role === "customer" ? "/dashboard/customer" : "/dashboard/owner"
+          role === "customer" ? "/customer/home" : "/dashboard/owner"
         );
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Signup error:", error);
-      alert("Signup failed. Please try again.");
+      console.error("Error response:", error.response?.data);
+      const errorMessage =
+        error.response?.data?.message || "Signup failed. Please try again.";
+      alert(errorMessage);
     }
   };
 

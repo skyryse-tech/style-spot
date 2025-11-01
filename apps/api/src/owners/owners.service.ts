@@ -1,9 +1,13 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { RedisService } from '../redis/redis.service';
 
 @Injectable()
 export class OwnersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private redis: RedisService,
+  ) {}
 
   async register(data: {
     user_email: string;
@@ -34,13 +38,29 @@ export class OwnersService {
       holidays?: any;
     },
   ) {
-    return this.prisma.shopOwner.update({
+    const updated = await this.prisma.shopOwner.update({
       where: { owner_id: ownerId },
       data,
     });
+
+    // Invalidate cache when owner data is updated
+    await this.redis.getClient().del(`owner:${ownerId}`);
+
+    return updated;
   }
 
   async getOwner(ownerId: number) {
+    // Try to get from cache first
+    const cacheKey = `owner:${ownerId}`;
+    const cached = await this.redis.get(cacheKey);
+
+    if (cached) {
+      console.log('✅ Cache hit for owner:', ownerId);
+      return JSON.parse(cached);
+    }
+
+    console.log('❌ Cache miss for owner:', ownerId);
+
     const owner = await this.prisma.shopOwner.findUnique({
       where: { owner_id: ownerId },
       include: {
@@ -63,6 +83,9 @@ export class OwnersService {
     if (!owner) {
       throw new NotFoundException('Shop owner not found');
     }
+
+    // Cache for 5 minutes (300 seconds)
+    await this.redis.set(cacheKey, JSON.stringify(owner), 300);
 
     return owner;
   }
@@ -101,6 +124,18 @@ export class OwnersService {
     page?: number;
     limit?: number;
   }) {
+    // Create cache key from search params
+    const cacheKey = `search:${JSON.stringify(params)}`;
+
+    // Try to get from cache first
+    const cached = await this.redis.get(cacheKey);
+    if (cached) {
+      console.log('✅ Cache hit for search:', params);
+      return JSON.parse(cached);
+    }
+
+    console.log('❌ Cache miss for search:', params);
+
     const page = params.page || 1;
     const limit = params.limit || 20;
     const skip = (page - 1) * limit;
@@ -181,6 +216,9 @@ export class OwnersService {
     if (params.lat || params.lng || params.pincode) {
       ownersWithRatings.sort((a, b) => a.distance - b.distance);
     }
+
+    // Cache search results for 2 minutes (120 seconds)
+    await this.redis.set(cacheKey, JSON.stringify(ownersWithRatings), 120);
 
     return ownersWithRatings;
   }

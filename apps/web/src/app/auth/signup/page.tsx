@@ -163,50 +163,52 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white py-12 px-4">
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white py-6 sm:py-12 px-3 sm:px-4">
+      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-4 sm:p-8">
+        <div className="text-center mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 mb-2">
             Create Account
           </h1>
-          <p className="text-gray-600">Join StyleSpot and start your journey</p>
+          <p className="text-sm sm:text-base text-gray-600">
+            Join StyleSpot and start your journey
+          </p>
         </div>
 
-        <div className="flex gap-4 mb-8">
+        <div className="flex gap-2 sm:gap-4 mb-6 sm:mb-8">
           <button
             onClick={() => setRole("customer")}
-            className={`flex-1 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
+            className={`flex-1 py-2.5 sm:py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base ${
               role === "customer"
                 ? "bg-purple-600 text-white shadow-md"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
-            <User className="w-5 h-5" />
+            <User className="w-4 h-4 sm:w-5 sm:h-5" />
             Customer
           </button>
           <button
             onClick={() => setRole("owner")}
-            className={`flex-1 py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-2 ${
+            className={`flex-1 py-2.5 sm:py-3 rounded-lg font-semibold transition-all flex items-center justify-center gap-1.5 sm:gap-2 text-sm sm:text-base ${
               role === "owner"
                 ? "bg-purple-600 text-white shadow-md"
                 : "bg-gray-100 text-gray-700 hover:bg-gray-200"
             }`}
           >
-            <Store className="w-5 h-5" />
+            <Store className="w-4 h-4 sm:w-5 sm:h-5" />
             Shop Owner
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           {role === "customer" ? (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                     First Name *
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <User className="absolute left-3 top-2.5 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                     <input
                       type="text"
                       placeholder="First Name"
@@ -215,16 +217,16 @@ export default function SignUpPage() {
                         setFormData({ ...formData, first_name: e.target.value })
                       }
                       required
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                      className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                     Last Name
                   </label>
                   <div className="relative">
-                    <User className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                    <User className="absolute left-3 top-2.5 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                     <input
                       type="text"
                       placeholder="Last Name"
@@ -232,18 +234,18 @@ export default function SignUpPage() {
                       onChange={(e) =>
                         setFormData({ ...formData, last_name: e.target.value })
                       }
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                      className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Email *
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                  <Mail className="absolute left-3 top-2.5 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                   <input
                     type="email"
                     placeholder="you@example.com"
@@ -252,17 +254,17 @@ export default function SignUpPage() {
                       setFormData({ ...formData, email: e.target.value })
                     }
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                    className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Phone *
                 </label>
                 <div className="relative">
-                  <Phone className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                  <Phone className="absolute left-3 top-2.5 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                   <input
                     type="tel"
                     placeholder="+91 9876543210"
@@ -271,17 +273,17 @@ export default function SignUpPage() {
                       setFormData({ ...formData, phone: e.target.value })
                     }
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                    className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                   Password *
                 </label>
                 <div className="relative">
-                  <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                  <Lock className="absolute left-3 top-2.5 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                   <input
                     type="password"
                     placeholder="••••••••"
@@ -290,19 +292,19 @@ export default function SignUpPage() {
                       setFormData({ ...formData, password: e.target.value })
                     }
                     required
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                    className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                   />
                 </div>
               </div>
             </>
           ) : (
             <>
-              <div className="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-6">
-                <h3 className="font-semibold text-purple-900 mb-2 flex items-center gap-2">
-                  <Store className="w-5 h-5" />
+              <div className="bg-purple-50 border border-purple-200 rounded-lg p-3 sm:p-4 mb-4 sm:mb-6">
+                <h3 className="font-semibold text-sm sm:text-base text-purple-900 mb-1 sm:mb-2 flex items-center gap-2">
+                  <Store className="w-4 h-4 sm:w-5 sm:h-5" />
                   Business Owner Registration
                 </h3>
-                <p className="text-sm text-purple-700">
+                <p className="text-xs sm:text-sm text-purple-700">
                   Please provide complete details to set up your business
                   profile
                 </p>
@@ -310,13 +312,13 @@ export default function SignUpPage() {
 
               {/* Personal Information */}
               <div>
-                <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <User className="w-5 h-5 text-purple-600" />
+                <h4 className="font-semibold text-sm sm:text-base text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
+                  <User className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                   Personal Information
                 </h4>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                       Full Name *
                     </label>
                     <input
@@ -330,17 +332,17 @@ export default function SignUpPage() {
                         })
                       }
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                         Email *
                       </label>
                       <div className="relative">
-                        <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                        <Mail className="absolute left-3 top-2.5 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                         <input
                           type="email"
                           placeholder="business@example.com"
@@ -352,16 +354,16 @@ export default function SignUpPage() {
                             })
                           }
                           required
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                          className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                         />
                       </div>
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                         Phone *
                       </label>
                       <div className="relative">
-                        <Phone className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                        <Phone className="absolute left-3 top-2.5 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                         <input
                           type="tel"
                           placeholder="+91 9876543210"
@@ -373,18 +375,18 @@ export default function SignUpPage() {
                             })
                           }
                           required
-                          className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                          className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                         />
                       </div>
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                       Password *
                     </label>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+                      <Lock className="absolute left-3 top-2.5 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
                       <input
                         type="password"
                         placeholder="••••••••"
@@ -396,7 +398,7 @@ export default function SignUpPage() {
                           })
                         }
                         required
-                        className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                       />
                     </div>
                   </div>
@@ -404,14 +406,14 @@ export default function SignUpPage() {
               </div>
 
               {/* Business Information */}
-              <div className="border-t pt-6">
-                <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <Store className="w-5 h-5 text-purple-600" />
+              <div className="border-t pt-4 sm:pt-6">
+                <h4 className="font-semibold text-sm sm:text-base text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
+                  <Store className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                   Business Information
                 </h4>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                       Shop/Business Name *
                     </label>
                     <input
@@ -425,11 +427,11 @@ export default function SignUpPage() {
                         })
                       }
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
 
-                  <div className="flex items-center gap-3 bg-gray-50 p-4 rounded-lg">
+                  <div className="flex items-center gap-2 sm:gap-3 bg-gray-50 p-3 sm:p-4 rounded-lg">
                     <input
                       type="checkbox"
                       id="is_freelancer"
@@ -440,11 +442,11 @@ export default function SignUpPage() {
                           is_freelancer: e.target.checked,
                         })
                       }
-                      className="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+                      className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
                     />
                     <label
                       htmlFor="is_freelancer"
-                      className="text-sm font-medium text-gray-700 cursor-pointer"
+                      className="text-xs sm:text-sm font-medium text-gray-700 cursor-pointer"
                     >
                       I am a freelancer (without shop)
                     </label>
@@ -453,14 +455,14 @@ export default function SignUpPage() {
               </div>
 
               {/* Shop Address */}
-              <div className="border-t pt-6">
-                <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <MapPin className="w-5 h-5 text-purple-600" />
+              <div className="border-t pt-4 sm:pt-6">
+                <h4 className="font-semibold text-sm sm:text-base text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                   Business Address
                 </h4>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                       Street Address *
                     </label>
                     <input
@@ -477,13 +479,13 @@ export default function SignUpPage() {
                         })
                       }
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <div className="grid grid-cols-2 md:grid-cols-3 gap-2 sm:gap-4">
+                    <div className="col-span-2 md:col-span-1">
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                         City *
                       </label>
                       <input
@@ -500,11 +502,11 @@ export default function SignUpPage() {
                           })
                         }
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                         State *
                       </label>
                       <input
@@ -521,11 +523,11 @@ export default function SignUpPage() {
                           })
                         }
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                         Pincode *
                       </label>
                       <input
@@ -542,7 +544,7 @@ export default function SignUpPage() {
                           })
                         }
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                       />
                     </div>
                   </div>
@@ -550,18 +552,18 @@ export default function SignUpPage() {
               </div>
 
               {/* Service Types */}
-              <div className="border-t pt-6">
-                <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <Briefcase className="w-5 h-5 text-purple-600" />
+              <div className="border-t pt-4 sm:pt-6">
+                <h4 className="font-semibold text-sm sm:text-base text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
+                  <Briefcase className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                   Services Offered *
                 </h4>
-                <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-2 sm:gap-3">
                   {serviceTypeOptions.map((service) => (
                     <button
                       key={service}
                       type="button"
                       onClick={() => toggleServiceType(service)}
-                      className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                      className={`px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${
                         ownerFormData.service_types.includes(service)
                           ? "bg-purple-600 text-white shadow-md"
                           : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -572,21 +574,21 @@ export default function SignUpPage() {
                   ))}
                 </div>
                 {ownerFormData.service_types.length === 0 && (
-                  <p className="text-sm text-red-600 mt-2">
+                  <p className="text-xs sm:text-sm text-red-600 mt-2">
                     Please select at least one service type
                   </p>
                 )}
               </div>
 
               {/* Bank Account Details */}
-              <div className="border-t pt-6">
-                <h4 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <CreditCard className="w-5 h-5 text-purple-600" />
+              <div className="border-t pt-4 sm:pt-6">
+                <h4 className="font-semibold text-sm sm:text-base text-gray-900 mb-3 sm:mb-4 flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 sm:w-5 sm:h-5 text-purple-600" />
                   Bank Account Details
                 </h4>
-                <div className="space-y-4">
+                <div className="space-y-3 sm:space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                       Account Holder Name *
                     </label>
                     <input
@@ -603,13 +605,13 @@ export default function SignUpPage() {
                         })
                       }
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                         Bank Name *
                       </label>
                       <input
@@ -626,11 +628,11 @@ export default function SignUpPage() {
                           })
                         }
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                      <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                         IFSC Code *
                       </label>
                       <input
@@ -647,13 +649,13 @@ export default function SignUpPage() {
                           })
                         }
                         required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                        className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                    <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                       Account Number *
                     </label>
                     <input
@@ -670,19 +672,19 @@ export default function SignUpPage() {
                         })
                       }
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                      className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                 </div>
               </div>
 
               {/* UPI Details */}
-              <div className="border-t pt-6">
-                <h4 className="font-semibold text-gray-900 mb-4">
+              <div className="border-t pt-4 sm:pt-6">
+                <h4 className="font-semibold text-sm sm:text-base text-gray-900 mb-3 sm:mb-4">
                   UPI Details *
                 </h4>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                  <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
                     UPI ID / VPA
                   </label>
                   <input
@@ -699,7 +701,7 @@ export default function SignUpPage() {
                       })
                     }
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                    className="w-full px-3 sm:px-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
                   />
                   <p className="text-xs text-gray-500 mt-1">
                     This UPI ID will be used for receiving payments from
@@ -712,7 +714,7 @@ export default function SignUpPage() {
 
           <button
             type="submit"
-            className="w-full bg-purple-600 text-white py-4 rounded-lg hover:bg-purple-700 font-semibold text-lg shadow-md transition-colors"
+            className="w-full bg-purple-600 text-white py-3 sm:py-4 rounded-lg hover:bg-purple-700 font-semibold text-base sm:text-lg shadow-md transition-colors"
           >
             {role === "customer"
               ? "Create Customer Account"
@@ -720,7 +722,7 @@ export default function SignUpPage() {
           </button>
         </form>
 
-        <p className="text-center mt-6 text-gray-600">
+        <p className="text-center mt-4 sm:mt-6 text-sm sm:text-base text-gray-600">
           Already have an account?{" "}
           <a
             href="/auth/signin"

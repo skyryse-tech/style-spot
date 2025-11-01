@@ -72,56 +72,58 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white flex items-center justify-center py-12 px-4">
-      <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-8">
-        <div className="text-center mb-8">
-          <div className="flex justify-center mb-4">
-            <div className="bg-purple-100 p-3 rounded-full">
-              <Sparkles className="w-8 h-8 text-purple-600" />
+    <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white flex items-center justify-center py-6 sm:py-12 px-3 sm:px-4">
+      <div className="max-w-md w-full bg-white rounded-xl shadow-lg p-6 sm:p-8">
+        <div className="text-center mb-6 sm:mb-8">
+          <div className="flex justify-center mb-3 sm:mb-4">
+            <div className="bg-purple-100 p-2.5 sm:p-3 rounded-full">
+              <Sparkles className="w-7 h-7 sm:w-8 sm:h-8 text-purple-600" />
             </div>
           </div>
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">
             Welcome Back
           </h1>
-          <p className="text-gray-600">Sign in to your StyleSpot account</p>
+          <p className="text-sm sm:text-base text-gray-600">
+            Sign in to your StyleSpot account
+          </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
               Email Address
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+              <Mail className="absolute left-3 top-2.5 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
               <input
                 type="email"
                 placeholder="you@example.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-gray-700 mb-1.5 sm:mb-2">
               Password
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
+              <Lock className="absolute left-3 top-2.5 sm:top-3 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
               <input
                 type="password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                className="w-full pl-9 sm:pl-10 pr-3 sm:pr-4 py-2.5 sm:py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-600 focus:border-transparent text-sm sm:text-base"
               />
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-sm">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-0 text-xs sm:text-sm">
             <label className="flex items-center">
               <input
                 type="checkbox"
@@ -137,28 +139,28 @@ export default function SignInPage() {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-purple-600 text-white py-3 rounded-lg hover:bg-purple-700 font-semibold transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-purple-600 text-white py-2.5 sm:py-3 rounded-lg hover:bg-purple-700 font-semibold transition-colors shadow-md disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
           >
             {isLoading ? "Signing in..." : "Sign In"}
           </button>
         </form>
 
-        <div className="mt-6">
+        <div className="mt-5 sm:mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
               <div className="w-full border-t border-gray-300"></div>
             </div>
-            <div className="relative flex justify-center text-sm">
+            <div className="relative flex justify-center text-xs sm:text-sm">
               <span className="px-2 bg-white text-gray-500">
                 New to StyleSpot?
               </span>
             </div>
           </div>
 
-          <div className="mt-6 text-center">
+          <div className="mt-4 sm:mt-6 text-center">
             <a
               href="/auth/signup"
-              className="text-purple-600 hover:text-purple-700 font-medium"
+              className="text-sm sm:text-base text-purple-600 hover:text-purple-700 font-medium"
             >
               Create an account →
             </a>

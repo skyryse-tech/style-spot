@@ -46,4 +46,33 @@ export class RedisService implements OnModuleInit, OnModuleDestroy {
       await this.client.set(key, value);
     }
   }
+
+  async del(key: string): Promise<number> {
+    return await this.client.del(key);
+  }
+
+  async exists(key: string): Promise<number> {
+    return await this.client.exists(key);
+  }
+
+  async incr(key: string): Promise<number> {
+    return await this.client.incr(key);
+  }
+
+  async expire(key: string, seconds: number): Promise<boolean> {
+    return await this.client.expire(key, seconds);
+  }
+
+  async ttl(key: string): Promise<number> {
+    return await this.client.ttl(key);
+  }
+
+  // Invalidate multiple keys by pattern (e.g., "owner:123:*")
+  async invalidatePattern(pattern: string): Promise<void> {
+    const keys = await this.client.keys(pattern);
+    if (keys.length > 0) {
+      await this.client.del(keys);
+      console.log(`🗑️  Invalidated ${keys.length} cache keys matching: ${pattern}`);
+    }
+  }
 }

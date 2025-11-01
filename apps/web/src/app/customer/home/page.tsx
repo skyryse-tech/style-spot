@@ -185,14 +185,14 @@ export default function CustomerHomePage() {
     <div className="min-h-screen bg-gradient-to-b from-cyan-50 via-blue-50 to-gray-50">
       {/* Modern Navbar */}
       <nav className="bg-white shadow-sm sticky top-0 z-50 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
+          <div className="flex items-center justify-between h-14 sm:h-16 gap-1 sm:gap-4">
             {/* Logo */}
-            <div className="flex items-center gap-2">
-              <div className="bg-gradient-to-br from-cyan-500 via-blue-500 to-indigo-600 p-2 rounded-xl shadow-lg">
-                <Sparkles className="w-5 h-5 text-white" />
+            <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
+              <div className="bg-gradient-to-br from-cyan-500 via-blue-500 to-indigo-600 p-1.5 sm:p-2 rounded-lg sm:rounded-xl shadow-lg">
+                <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent">
+              <span className="text-base sm:text-xl font-bold bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent hidden xs:block">
                 StyleSpot
               </span>
             </div>
@@ -200,26 +200,28 @@ export default function CustomerHomePage() {
             {/* Location Selector - Prominent */}
             <button
               onClick={() => setShowLocationPicker(true)}
-              className="flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-cyan-50 to-blue-50 hover:from-cyan-100 hover:to-blue-100 rounded-xl transition-all border border-cyan-200 shadow-md hover:shadow-lg"
+              className="flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2.5 bg-gradient-to-r from-cyan-50 to-blue-50 hover:from-cyan-100 hover:to-blue-100 rounded-lg sm:rounded-xl transition-all border border-cyan-200 shadow-md hover:shadow-lg flex-1 max-w-[140px] sm:max-w-none"
             >
-              <MapPin className="w-5 h-5 text-cyan-600" />
-              <div className="font-bold text-gray-900 flex items-center gap-1">
-                {location ? (
-                  <>
-                    {location.pincode
-                      ? `Pincode ${location.pincode}`
-                      : location.area
-                        ? `${location.area}${location.city ? `, ${location.city}` : ""}`
-                        : "Current Location"}
-                  </>
-                ) : (
-                  "Select Location"
-                )}
-                <ChevronDown className="w-4 h-4 text-cyan-600" />
+              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-600 flex-shrink-0" />
+              <div className="font-bold text-xs sm:text-base text-gray-900 flex items-center gap-0.5 sm:gap-1 truncate overflow-hidden">
+                <span className="truncate">
+                  {location ? (
+                    <>
+                      {location.pincode
+                        ? `${location.pincode}`
+                        : location.area
+                          ? location.area
+                          : "Location"}
+                    </>
+                  ) : (
+                    "Select"
+                  )}
+                </span>
+                <ChevronDown className="w-3 h-3 sm:w-4 sm:h-4 text-cyan-600 flex-shrink-0" />
               </div>
             </button>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-1.5 sm:gap-4 flex-shrink-0">
               <button
                 onClick={() => {
                   if (isAuthenticated) {
@@ -228,7 +230,7 @@ export default function CustomerHomePage() {
                     router.push("/auth/signin");
                   }
                 }}
-                className="text-gray-700 hover:text-cyan-600 font-medium transition-colors cursor-pointer"
+                className="hidden md:block text-gray-700 hover:text-cyan-600 font-medium transition-colors cursor-pointer text-sm"
               >
                 My Bookings
               </button>
@@ -240,18 +242,18 @@ export default function CustomerHomePage() {
                     localStorage.removeItem("user");
                     setIsAuthenticated(false);
                   }}
-                  className="flex items-center gap-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-2 rounded-xl hover:shadow-xl transition-all font-medium shadow-md hover:scale-105"
+                  className="flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl hover:shadow-xl transition-all font-medium shadow-md hover:scale-105 text-xs sm:text-sm"
                 >
-                  <User className="w-4 h-4" />
-                  Sign Out
+                  <User className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden xs:inline">Exit</span>
                 </button>
               ) : (
                 <a
                   href="/auth/signin"
-                  className="flex items-center gap-2 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 text-white px-4 py-2 rounded-xl hover:shadow-xl transition-all font-medium shadow-md hover:scale-105"
+                  className="flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 text-white px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl hover:shadow-xl transition-all font-medium shadow-md hover:scale-105 text-xs sm:text-sm"
                 >
-                  <User className="w-4 h-4" />
-                  Sign In
+                  <User className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <span className="hidden xs:inline">Login</span>
                 </a>
               )}
             </div>
@@ -261,38 +263,38 @@ export default function CustomerHomePage() {
 
       {/* Hero Search Section */}
       <div className="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 text-white shadow-xl">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <h1 className="text-3xl font-bold mb-2">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-bold mb-1 sm:mb-2">
             Discover Your Perfect Style
           </h1>
-          <p className="text-cyan-50 mb-6">
+          <p className="text-cyan-50 mb-4 sm:mb-6 text-sm sm:text-base">
             Book appointments at the best salons, spas & beauty parlours near
             you
           </p>
 
           {/* Search Bar */}
           <div className="relative max-w-3xl">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-gray-400" />
             <input
               type="text"
-              placeholder="Search for salons, spas, services, or stylists..."
+              placeholder="Search salons, spas, services..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 rounded-xl border-0 shadow-2xl focus:ring-2 focus:ring-white text-gray-900 placeholder-gray-400 text-lg"
+              className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-3 sm:py-4 rounded-lg sm:rounded-xl border-0 shadow-2xl focus:ring-2 focus:ring-white text-gray-900 placeholder-gray-400 text-sm sm:text-lg"
             />
           </div>
         </div>
       </div>
 
       {/* Category Chips - Swiggy Style */}
-      <div className="bg-white border-b sticky top-16 z-40 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex gap-3 overflow-x-auto py-4 scrollbar-hide">
+      <div className="bg-white border-b sticky top-[56px] sm:top-16 z-40 shadow-sm overflow-hidden">
+        <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+          <div className="flex gap-2 sm:gap-3 overflow-x-auto py-2 sm:py-4 scrollbar-hide -mx-2 px-2 sm:mx-0 sm:px-0">
             {categories.map((category) => (
               <button
                 key={category.id}
                 onClick={() => setSelectedCategory(category.id)}
-                className={`flex-shrink-0 px-6 py-2.5 rounded-full font-semibold transition-all whitespace-nowrap ${
+                className={`flex-shrink-0 px-3 sm:px-6 py-1.5 sm:py-2.5 rounded-full font-semibold transition-all whitespace-nowrap text-xs sm:text-base ${
                   selectedCategory === category.id
                     ? `bg-gradient-to-r ${category.gradient} text-white shadow-md scale-105`
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
@@ -307,25 +309,25 @@ export default function CustomerHomePage() {
 
       {/* Quick Filters & Sort */}
       {location && (
-        <div className="bg-white border-b">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <div className="flex items-center justify-between flex-wrap gap-4">
+        <div className="bg-white border-b overflow-hidden">
+          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8 py-2 sm:py-4">
+            <div className="flex items-center gap-2 sm:gap-4 overflow-x-auto scrollbar-hide -mx-2 px-2 sm:mx-0 sm:px-0">
               {/* Quick Filters */}
-              <div className="flex gap-2 flex-wrap">
+              <div className="flex gap-1.5 sm:gap-2 flex-shrink-0">
                 {quickFilters.map((filter) => {
                   const Icon = filter.icon;
                   return (
                     <button
                       key={filter.id}
                       onClick={() => toggleFilter(filter.id)}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-lg border transition-all ${
+                      className={`flex items-center gap-1 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg border transition-all flex-shrink-0 ${
                         selectedFilters.includes(filter.id)
                           ? "bg-cyan-100 border-cyan-600 text-cyan-700 shadow-md"
                           : "bg-white border-gray-300 text-gray-700 hover:border-cyan-400"
                       }`}
                     >
-                      <Icon className="w-4 h-4" />
-                      <span className="text-sm font-medium">
+                      <Icon className="w-3 h-3 sm:w-4 sm:h-4" />
+                      <span className="text-xs sm:text-sm font-medium whitespace-nowrap">
                         {filter.label}
                       </span>
                     </button>
@@ -334,8 +336,8 @@ export default function CustomerHomePage() {
               </div>
 
               {/* Sort Dropdown */}
-              <div className="flex items-center gap-2">
-                <Filter className="w-4 h-4 text-gray-500" />
+              <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0 ml-auto">
+                <Filter className="w-3 h-3 sm:w-4 sm:h-4 text-gray-500 hidden sm:block" />
                 <select
                   value={sortBy}
                   onChange={(e) =>
@@ -343,11 +345,11 @@ export default function CustomerHomePage() {
                       e.target.value as "distance" | "rating" | "popular"
                     )
                   }
-                  className="px-4 py-2 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 bg-white hover:border-cyan-400 focus:ring-2 focus:ring-cyan-600 focus:border-transparent cursor-pointer"
+                  className="px-2.5 sm:px-4 py-1.5 sm:py-2 border border-gray-300 rounded-lg text-xs sm:text-sm font-medium text-gray-700 bg-white hover:border-cyan-400 focus:ring-2 focus:ring-cyan-600 focus:border-transparent cursor-pointer"
                 >
-                  <option value="distance">Sort by: Nearest First</option>
-                  <option value="rating">Sort by: Highest Rated</option>
-                  <option value="popular">Sort by: Most Popular</option>
+                  <option value="distance">Nearest</option>
+                  <option value="rating">Top Rated</option>
+                  <option value="popular">Popular</option>
                 </select>
               </div>
             </div>
@@ -356,40 +358,40 @@ export default function CustomerHomePage() {
       )}
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
         {!location ? (
-          <div className="text-center py-20 bg-white rounded-2xl shadow-lg">
-            <div className="bg-gradient-to-r from-cyan-100 to-blue-100 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
-              <MapPin className="w-12 h-12 text-cyan-600" />
+          <div className="text-center py-12 sm:py-20 bg-white rounded-xl sm:rounded-2xl shadow-lg mx-2 sm:mx-0">
+            <div className="bg-gradient-to-r from-cyan-100 to-blue-100 w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+              <MapPin className="w-10 h-10 sm:w-12 sm:h-12 text-cyan-600" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 px-4">
               Choose Your Location
             </h3>
-            <p className="text-gray-600 mb-8 max-w-md mx-auto">
+            <p className="text-sm sm:text-base text-gray-600 mb-6 sm:mb-8 max-w-md mx-auto px-4">
               Please set your location to discover nearby salons, spas, and
               beauty services
             </p>
             <button
               onClick={() => setShowLocationPicker(true)}
-              className="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 text-white px-8 py-3 rounded-xl hover:shadow-2xl transition-all font-semibold shadow-lg hover:scale-105"
+              className="bg-gradient-to-r from-cyan-500 via-blue-500 to-indigo-600 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-xl hover:shadow-2xl transition-all font-semibold shadow-lg hover:scale-105 text-sm sm:text-base"
             >
               Set Location Now
             </button>
           </div>
         ) : loading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[1, 2, 3, 4, 5, 6].map((i) => (
               <div
                 key={i}
-                className="bg-white rounded-2xl shadow-md h-96 animate-pulse overflow-hidden"
+                className="bg-white rounded-xl sm:rounded-2xl shadow-md h-80 sm:h-96 animate-pulse overflow-hidden"
               >
-                <div className="h-52 bg-gradient-to-r from-gray-200 to-gray-300" />
-                <div className="p-5 space-y-3">
-                  <div className="h-6 bg-gray-200 rounded-lg w-3/4" />
-                  <div className="h-4 bg-gray-200 rounded w-1/2" />
+                <div className="h-44 sm:h-52 bg-gradient-to-r from-gray-200 to-gray-300" />
+                <div className="p-4 sm:p-5 space-y-2 sm:space-y-3">
+                  <div className="h-5 sm:h-6 bg-gray-200 rounded-lg w-3/4" />
+                  <div className="h-3 sm:h-4 bg-gray-200 rounded w-1/2" />
                   <div className="flex gap-2">
-                    <div className="h-8 bg-gray-200 rounded-lg w-24" />
-                    <div className="h-8 bg-gray-200 rounded-lg w-24" />
+                    <div className="h-7 sm:h-8 bg-gray-200 rounded-lg w-20 sm:w-24" />
+                    <div className="h-7 sm:h-8 bg-gray-200 rounded-lg w-20 sm:w-24" />
                   </div>
                 </div>
               </div>
@@ -397,20 +399,20 @@ export default function CustomerHomePage() {
           </div>
         ) : salons.length > 0 ? (
           <>
-            <div className="mb-6 flex items-center justify-between">
+            <div className="mb-4 sm:mb-6 flex items-center justify-between px-2 sm:px-0">
               <div>
-                <h2 className="text-2xl font-bold text-gray-900">
+                <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900">
                   {selectedCategory === "all"
                     ? "All Services Near You"
                     : `${categories.find((c) => c.id === selectedCategory)?.name} Services`}
                 </h2>
-                <p className="text-gray-600 mt-1">
+                <p className="text-xs sm:text-sm md:text-base text-gray-600 mt-1">
                   {salons.length} result{salons.length !== 1 ? "s" : ""} found
                   {location.pincode && ` near Pincode ${location.pincode}`}
                 </p>
               </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {salons.map((salon, index) => (
                 <div
                   key={salon.owner_id || index}
@@ -422,14 +424,14 @@ export default function CustomerHomePage() {
             </div>
           </>
         ) : (
-          <div className="text-center py-20 bg-white rounded-2xl shadow-lg">
-            <div className="bg-gradient-to-r from-gray-100 to-gray-200 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6">
-              <SearchX className="w-12 h-12 text-gray-400" />
+          <div className="text-center py-12 sm:py-20 bg-white rounded-xl sm:rounded-2xl shadow-lg mx-2 sm:mx-0">
+            <div className="bg-gradient-to-r from-gray-100 to-gray-200 w-20 h-20 sm:w-24 sm:h-24 rounded-full flex items-center justify-center mx-auto mb-4 sm:mb-6">
+              <SearchX className="w-10 h-10 sm:w-12 sm:h-12 text-gray-400" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">
+            <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 px-4">
               No Results Found
             </h3>
-            <p className="text-gray-600 mb-6 max-w-md mx-auto">
+            <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 max-w-md mx-auto px-4">
               We couldn't find any salons matching your criteria. Try adjusting
               your filters or location.
             </p>
